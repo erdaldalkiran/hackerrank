@@ -1,0 +1,65 @@
+'use strict';
+
+process.stdin.resume();
+process.stdin.setEncoding('ascii');
+
+var input_stdin = "";
+var input_stdin_array = "";
+var input_currentline = 0;
+
+process.stdin.on('data', function (data) {
+    input_stdin += data;
+});
+
+process.stdin.on('end', function () {
+    input_stdin_array = input_stdin.split("\n");
+    main();
+});
+
+function readLine() {
+    return input_stdin_array[input_currentline++];
+}
+
+var Person = {
+    init : (age) => {
+        this.age = 0
+        if (age < 0){
+            console.log("Age is not valid, setting age to 0.")
+            return
+        }
+        this.age = age
+    },
+    yearPasses : () => {
+        this.age += 1
+    },
+    amIOld : () => {
+        if (this.age < 13){
+            console.log("You are young.")
+            return
+        }
+
+        if (13 <= this.age && this.age <18){
+            console.log("You are a teenager.")
+            return
+        }
+
+        console.log("You are old.")
+    }
+};
+
+function main() {
+
+    var T = parseInt(readLine());
+    for (let i = 0; i < T; i++) {
+        var age = parseInt(readLine());
+        var p = Object.create(Person);
+        p.init(age)
+        p.amIOld();
+        for (let j = 0; j < 3; j++) {
+            p.yearPasses();
+
+        }
+        p.amIOld();
+        console.log("");
+    }
+}
